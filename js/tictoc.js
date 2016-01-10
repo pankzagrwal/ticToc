@@ -22,13 +22,6 @@ var player = 1; // 1 for Player 1, 2 for Player 2 Default is Player 1
 var symbol = "X"; // symbol can be "X" or "O" TODO symbol input from Players
 var haveWon = false;
 
-// function createTicToc () {
-// 	var container = document.getElementByClassname("tictoc")[0];
-// 	var divCell = document.createElement("div");
-
-// 	for (var i = 0 ; i < 3; )
-// }
-
 function cellClicked (ev) {
 	var target = ev.target;
 	var col = ev.target.dataset.column;
@@ -64,37 +57,31 @@ function cellClicked (ev) {
 		clickCount++;
 	}
 	
-	checkGame();
+	checkGame({
+		row: row,
+		col: col
+	});
 
 }
 
-function checkGame () {
+function checkGame (config) {
 
-
+	var r = config.row,
+		c = config.col;
 	if (haveWon) {
 		return;
 	}
 
-	// Check for Column
-	var c = 1; var r = 1; 
-	for (var i = 1; i < 4;  i++) {
-		if ((ticTocObj[r][c] === ticTocObj[r+1][c]) &&  (ticTocObj[r][c] === ticTocObj[r+2][c])) {
-			alert("player " + player + "Won");
-			haveWon = true;
-		}
-		r =1;
-		c = c + 1;
+	//Check for Column
+	if ((ticTocObj[1][c] === ticTocObj[2][c]) &&  (ticTocObj[1][c] === ticTocObj[3][c])) {
+		alert("player " + player + "Won");
+		haveWon = true;
 	}
 
-	// Check for Row
-	c = 1; r = 1;
-	for (var i = 1; i < 4;  i++) {
-		if ((ticTocObj[r][c] === ticTocObj[r][c + 1]) &&  (ticTocObj[r][c] === ticTocObj[r][c + 2])) {
-			alert("player " + player + "Won");
-			haveWon = true;
-		}
-		r = r + 1;
-		c = 1;
+	//Check for Row
+	if ((ticTocObj[r][1] === ticTocObj[r][2]) &&  (ticTocObj[r][1] === ticTocObj[r][3])) {
+		alert("player " + player + "Won");
+		haveWon = true;
 	}
 
 	//Check for Diagonal
@@ -130,9 +117,5 @@ function checkGame () {
 var container = document.getElementsByClassName("tictoc")[0];
 
 container.addEventListener("click", cellClicked);
-
-
-
-
 
 }) ();
